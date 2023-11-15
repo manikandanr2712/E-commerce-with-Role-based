@@ -1,0 +1,43 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #2874f0; /* Flipkart's Blue Color */
+    color: #fff;
+  }
+  
+  .logo img {
+    height: 40px; /* Adjust as needed */
+  }
+  
+  .search input {
+    padding: 8px;
+    width: 300px;
+  }
+  
+  .seller,
+  .signin,
+  .cart {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .submenu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1;
+  }
+  
+  .signin:hover .submenu {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Add styling for icons (font-awesome icons used in this example) */
+  

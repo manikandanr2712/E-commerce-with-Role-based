@@ -1,0 +1,58 @@
+<div class="col-md-12">
+  <div class="card card-container">
+    <img
+      id="profile-img"
+      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+      class="profile-img-card"
+    />
+    <form [formGroup]="loginForm">
+        <div class="form-group">
+            <label for="emailId">EmailId</label>
+            <input type="text" id="emailId" class="form-control" formControlName="emailId">
+            <div *ngIf="formError['emailId']?.invalid && (formError['emailId'].dirty || formError['emailId']?.touched)" class="alert mt-2 alert-danger">
+                <div *ngIf="formError['emailId'].errors?.['required']">
+                    Email is required.
+                </div>
+                <div *ngIf="formError['emailId'].errors?.['email']">
+                    Invalid.
+                </div>
+            </div>
+        </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          formControlName="password"
+        />
+        <div
+          *ngIf="
+            formError['password']?.invalid &&
+            (formError['password'].dirty || formError['password']?.touched)
+          "
+          class="alert mt-2 alert-danger"
+        >
+          <div *ngIf="formError['password'].errors?.['required']">
+            Password is required.
+          </div>
+        </div>
+      </div>    
+    <app-save-button (buttonClicked)="buttonTriggered($event)" [disabled]="isFormInvalid()">LOGIN</app-save-button>
+    <!-- <button class="btn btn-primary" type="submit">Submit</button> -->
+    <div class="row">
+    <button class="btn btn-grey mt-2" (click)="onCancel()">Cancel</button>
+    </div>
+    <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
+        <span style="font-size: 25px; background-color: #F3F5F6; padding: 0 10px;">
+          OR
+        </span>
+      </div>
+    
+    <div class="mt-3 text-center">
+        <a href="/signup">Sign Up ?</a>
+    </div>
+    </form>
+  </div>
+</div>
