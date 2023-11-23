@@ -52,7 +52,5 @@ isFormInvalid() {
   console.log("daa");
   return this.loginForm.invalid;
 }
-reloadPage(): void {
-  window.location.reload();
-}
+
 }

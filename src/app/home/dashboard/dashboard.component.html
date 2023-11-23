@@ -1,45 +1,69 @@
-<div id="app">
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
-      <a href="#" class="navbar-brand">Hospital Management</a>
-      <ul class="navbar-nav mr-auto" routerLinkActive="active">
-        <li class="nav-item">
-          <a href="/home" class="nav-link" routerLink="home">Home </a>
-        </li>
-        <li class="nav-item" *ngIf="showAdminBoard">
-          <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
-        </li>
-        <li class="nav-item" *ngIf="showModeratorBoard">
-          <a href="/book-appoinment" class="nav-link" routerLink="book-appoinment">Book Appoinment</a>
-        </li>
-        <li class="nav-item" *ngIf="showAdminBoard">
-          <a href="/mod" class="nav-link" routerLink="mod">Add Doctor</a>
-        </li>
-        <li class="nav-item">
-          <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">User</a>
-        </li>
-      </ul>
-  
-      <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
-        <li class="nav-item">
-          <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
-        </li>
-        <li class="nav-item">
-          <a href="/login" class="nav-link" routerLink="login">Login</a>
-        </li>
-      </ul>
-  
-      <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
-        <li class="nav-item">
-          <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
-        </li>
-        <li class="nav-item">
-          <a href class="nav-link" (click)="logout()">LogOut</a>
-        </li>
-      </ul>
-    </nav>
-  
-    <div class="container">
-      <router-outlet></router-outlet>
-    </div>
+<!-- <mat-toolbar fxLayout="row" class="custom-toolbar" class="success">
+  <div fxLayout="row" fxLayoutAlign="start center" fxFlex="50%">
+    <span fxFlex class="logo">Organic Store</span>
   </div>
+
+  <div fxLayout="row" fxLayoutAlign="end center" fxFlex="50%" class="menu-buttons">
+    <button mat-button *ngFor="let item of menuItems" fxHide.xs>
+      <mat-icon class="mr">{{item.icon}}</mat-icon>
+      {{item.label}}
+    </button>
+    
+    <button mat-icon-button [matMenuTriggerFor]="dropMenu" fxHide fxShow.xs>
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #dropMenu="matMenu">
+      <ng-container *ngFor="let item of menuItems">
+        <div mat-menu-item *ngIf="item.subItems && item.subItems.length > 0" [matMenuTriggerFor]="subMenu">
+          <mat-icon class="mr">{{item.icon}}</mat-icon>
+          {{item.label}}
+          <mat-menu #subMenu="matMenu">
+            <ng-container *ngFor="let subItem of item.subItems">
+              <button mat-menu-item>{{subItem.label}}</button>
+            </ng-container>
+          </mat-menu>
+        </div>
+        <button mat-menu-item *ngIf="!item.subItems">
+          {{item.label}}
+        </button>
+        <mat-divider *ngIf="item !== menuItems[menuItems.length - 1]"></mat-divider>
+      </ng-container>
+    </mat-menu>
+  </div>
+</mat-toolbar>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div> -->
+<mat-toolbar class="success" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+
+  <div fxLayout="row" fxLayoutAlign="start center" routerLink="/dashboard" style="cursor: pointer;">
+    <span fxFlex class="logo">Organic Store</span>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="start center" class="menu-buttons">
+    <button mat-button [matMenuTriggerFor]="productsMenu" *ngIf="showAdminBoard">
+      <mat-icon>donut_small</mat-icon> Products
+    </button>
+    <mat-menu #productsMenu="matMenu">
+      <button mat-menu-item><mat-icon>add_circle</mat-icon> Add Product</button>
+      <button mat-menu-item><mat-icon>edit_circle</mat-icon> Edit Product</button>
+      <button mat-menu-item><mat-icon>delete_circle</mat-icon> Delete Product</button>
+    </mat-menu>
   
+    <mat-icon [matBadge]="badgeContent" matBadgeColor="warn" class="cart-icon" style="cursor: pointer;" (click)="addtocart()">shopping_cart</mat-icon>
+  
+    <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-b" >
+      <img src="../../assets/Fruits/apple.png" alt="Profile" class="profile-img">
+    </button>
+    <mat-menu #profileMenu="matMenu">
+      <button mat-menu-item>Dashboard</button>
+      <button mat-menu-item>Profile</button>
+      <button mat-menu-item>Setting</button>
+    </mat-menu>
+  </div>
+</mat-toolbar>
+<div class="container">
+  
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,70 @@
+USE [HospitalRestAPI]
+GO
+/****** Object: StoredProcedure [dbo].[ManageProduct] Script Date: 19-11-2023 21:12:13 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [ManageProduct]
+    @ProductId INT = NULL,
+    @Name NVARCHAR(MAX) = NULL,
+    @ImageFile VARBINARY(MAX) = NULL,
+    @ImagePath NVARCHAR(MAX) = NULL,
+    @Description NVARCHAR(MAX) = NULL,
+    @Price DECIMAL = NULL,
+    @StockQuantity INT = NULL,
+    @OperationType NVARCHAR(10)
+AS
+BEGIN
+    IF @OperationType = 'Insert'
+    BEGIN
+        INSERT INTO ProductsTable (Name, ImageFile, ImagePath, Description, Price, StockQuantity, CreatedAt)
+        VALUES (@Name, @ImageFile, @ImagePath, @Description, @Price, @StockQuantity, GETUTCDATE());
+    END
+    ELSE IF @OperationType = 'Update'
+    BEGIN
+        UPDATE ProductsTable
+        SET
+            Name = ISNULL(@Name, Name),
+            ImageFile = ISNULL(@ImageFile, ImageFile),
+            ImagePath = ISNULL(@ImagePath, ImagePath),
+            Description = ISNULL(@Description, Description),
+            Price = ISNULL(@Price, Price),
+            StockQuantity = ISNULL(@StockQuantity, StockQuantity),
+            UpdatedAt = GETUTCDATE()
+        WHERE Id = @ProductId;
+    END
+    ELSE IF @OperationType = 'Delete'
+    BEGIN
+        DELETE FROM ProductsTable WHERE Id = @ProductId;
+    END
+    ELSE IF @OperationType = 'Select'
+    BEGIN
+        SELECT
+            Id,
+            Name,
+            ImageFile,
+            ImagePath,
+            Description,
+            CreatedAt,
+            Price,
+            StockQuantity,
+            UpdatedAt
+        FROM ProductsTable
+        WHERE Id = ISNULL(@ProductId, Id);
+    END
+END
+
+
+CREATE TABLE ProductsTable
+(
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(MAX),
+    ImageFile VARBINARY(MAX),
+    ImagePath NVARCHAR(MAX),
+    Description NVARCHAR(MAX),
+    Price DECIMAL,
+    StockQuantity INT,
+    CreatedAt DATETIME,
+    UpdatedAt DATETIME
+);

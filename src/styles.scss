@@ -1,5 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
+// $custom-green: mat-palette($mat-green);
+// // Override the theme with the custom green
+// $theme: mat-light-theme($custom-green);
+
+// // Include the default Angular Material styles
+// @include angular-material-theme($theme);
+a {
+  text-decoration: none;
+  color: #f7f7f7;
+}
 
 label {
     display: block;
@@ -34,6 +44,12 @@ label {
     border-radius: 50%;
   }
 
- button {
-  border-radius: 25px !important;
+
+ .bg-img {
+  // background-image: url("");
+  // background-repeat: no-repeat;
+  background: linear-gradient(to right, #4CAF50, #2196F3); /* Adjust the color values as needed */
  }
+.success {
+  background-color: #4bb53f !important
+}

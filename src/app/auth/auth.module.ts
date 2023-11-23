@@ -22,6 +22,6 @@ import { SaveButtonComponent } from './reusable-comp/save-button/save-button.com
     AuthRoutingModule,
     ReactiveFormsModule,
     RouterModule
-  ]
+  ],
 })
 export class AuthModule { }

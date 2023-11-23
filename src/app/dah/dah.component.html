@@ -1,0 +1,32 @@
+<!-- app.component.html -->
+
+<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <span class="logo-text">Therichpost</span>
+    </div>
+  
+    <div fxLayout="row" fxLayoutAlign="end center">
+      <button mat-button [matMenuTriggerFor]="productsMenu">Products</button>
+      <mat-menu #productsMenu="matMenu">
+        <button mat-menu-item>Add Product</button>
+        <button mat-menu-item>Edit Product</button>
+        <button mat-menu-item>Delete Product</button>
+      </mat-menu>
+
+      <button mat-icon-button [matBadge]="badgeContent" matBadgePosition="after">
+        <mat-icon>shopping_cart</mat-icon>
+    </button>
+  
+      <button mat-icon-button [matMenuTriggerFor]="profileMenu">
+        <img src="../../assets/Fruits/apple.png" alt="Profile" class="profile-img">
+      </button>
+      <mat-menu #profileMenu="matMenu">
+        <!-- Add profile submenu items here -->
+        <button mat-menu-item>Dashboard</button>
+        <button mat-menu-item>Profile</button>
+        <button mat-menu-item>setting</button>
+      </mat-menu>
+    </div>
+  </mat-toolbar>
+  

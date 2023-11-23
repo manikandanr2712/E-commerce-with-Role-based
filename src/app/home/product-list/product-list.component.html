@@ -1,0 +1,24 @@
+
+<div fxLayout="row" fxLayoutAlign="center center" class="container">
+    <div fxLayout="row wrap" fxLayoutGap="16px">
+      <div fxFlex.gt-sm="calc(25% - 16px)" fxFlex.xs="100%" *ngFor="let product of products">
+        <mat-card class="product-card">
+          <img mat-card-image class="product-img" src="{{'../../assets/' + product.imagePath }}" alt="{{ product.name }}">
+          <mat-card-content class="product-details">
+            <h2 mat-card-title>{{ product.name }}</h2>
+            <p mat-card-subtitle>{{ product.price | currency: 'INR' }} / kg</p>
+            <div class="button-container">
+              <!-- <button mat-raised-button color="primary" class="buy-now-button">Buy Now</button> -->
+              <button mat-raised-button color="accent" class="add-to-cart-button" (click)="addtocart(product)">Add to Cart</button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <!-- Submenu -->
+        <div *ngIf="showSubmenu" class="submenu">
+          <!-- Add your submenu content here -->
+          Submenu Content
+        </div>
+      </div>
+    </div>
+  </div>
+  

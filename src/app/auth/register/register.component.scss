@@ -18,3 +18,12 @@ button[disabled] {
   background-color: #ccc;
   cursor: not-allowed;
 }
+
+label {
+  display: block;
+  margin-top: 10px;
+  color: #f7f7f7;
+}
+button {
+  border-radius: 25px !important;
+ }

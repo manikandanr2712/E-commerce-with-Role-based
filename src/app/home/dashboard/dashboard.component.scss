@@ -1,0 +1,171 @@
+// .header {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     padding: 10px;
+//     // background-color: #f2f2f2;
+//   }
+  
+//   .logo img {
+//     width: 60px;
+//     height: 30px;
+//     object-fit: contain;
+//     border-radius: 50px;
+//   }
+  
+//   .search-bar input[type="text"] {
+//     // padding: 10px;
+//     border: 1px solid #ccc;
+//     border-radius: 50px;
+//   }
+  
+//   .become-seller a {
+//     color: #333;
+//     text-decoration: none;
+//   }
+  
+//   .name {
+//     position: relative;
+//   }
+  
+//   .name span {
+//     margin-right: 10px;
+//   }
+  
+//   .model-submenu {
+//     position: absolute;
+//     top: 100%;
+//     left: 0;
+//     display: none;
+//     padding: 10px;
+//     background-color: #f2f2f2;
+//   }
+  
+//   .name:hover .model-submenu {
+//     display: block;
+//   }
+  
+//   .model-submenu ul {
+//     list-style: none;
+//     padding: 0;
+//     margin: 0;
+//   }
+  
+//   .model-submenu li {
+//     margin-bottom: 5px;
+//   }
+  
+//   .model-submenu a {
+//     color: #333;
+//     text-decoration: none;
+//   }
+  
+//   .cart a {
+//     display: flex;
+//     align-items: center;
+//     text-decoration: none;
+//     color: #333;
+//   }
+  
+//   .cart img {
+//     width: 20px;
+//     margin-right: 5px;
+//   }
+  
+//   .cart span {
+//     background-color: #333;
+//     color: #fff;
+//     padding: 5px;
+//     border-radius: 50%;
+//   }
+  
+
+// styles.scss
+
+.mat-toolbar {
+  position: fixed;
+  z-index: 1000;
+}
+.custom-toolbar {
+  height: 64px; /* Adjust height as needed */
+}
+
+.logo {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white; /* Logo text color */
+}
+
+.search-field {
+  margin-left: 16px; /* Add some margin between logo and search field */
+  margin-top: 16px;
+  border-radius: 50px;
+}
+
+.search-input {
+  color: white; /* Input text color */
+}
+
+.menu-buttons button, .menu-buttons .cart-icon {
+  color: white; /* Button text color */
+}
+
+/* menu.component.scss */
+.menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.has-submenu:hover {
+  background-color: #f0f0f0; /* Add your desired background color */
+}
+
+
+.profile-img {
+  // width: 32px; // Adjust the profile image size
+  // height: 32px;
+  border-radius: 50%; // Make the profile image round
+ margin-bottom: 10px;
+ object-fit: contain;
+}
+
+// Style the menu button
+button[matMenuTriggerFor] {
+  background-color: transparent; // Make the button background transparent
+  border: none;
+  cursor: pointer;
+
+  &:focus {
+    outline: none; // Remove the default focus outline
+  }
+}
+
+// Style the menu items
+.mat-menu-item {
+  padding: 8px 16px; // Add some padding to the menu items
+  font-size: 14px; // Adjust the font size
+
+  &:hover {
+    background-color: #f0f0f0; // Change the background color on hover
+  }
+}
+.profile-b {
+  border: 1px solid #fff;
+  border-radius: 50px;
+  left: 10px;
+}
+.cart-icon {
+  margin-right: 10px;
+}
+@media only screen and (max-width: 600px) {
+  .cart-icon {
+    margin-right: 0;
+  }
+}
