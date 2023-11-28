@@ -1,32 +1,108 @@
-<!-- app.component.html -->
+<!-- your-component.component.html -->
 
-<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-
-    <div fxLayout="row" fxLayoutAlign="start center">
-      <span class="logo-text">Therichpost</span>
-    </div>
+<section class="page-header">
+    <div class="overly"></div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <div class="content text-center">
+            <h1 class="mb-3">Cart</h1>
+            <p>Hath after appear tree great fruitful green dominion moveth sixth abundantly image that midst of god day multiply you’ll which</p>
   
-    <div fxLayout="row" fxLayoutAlign="end center">
-      <button mat-button [matMenuTriggerFor]="productsMenu">Products</button>
-      <mat-menu #productsMenu="matMenu">
-        <button mat-menu-item>Add Product</button>
-        <button mat-menu-item>Edit Product</button>
-        <button mat-menu-item>Delete Product</button>
-      </mat-menu>
-
-      <button mat-icon-button [matBadge]="badgeContent" matBadgePosition="after">
-        <mat-icon>shopping_cart</mat-icon>
-    </button>
-  
-      <button mat-icon-button [matMenuTriggerFor]="profileMenu">
-        <img src="../../assets/Fruits/apple.png" alt="Profile" class="profile-img">
-      </button>
-      <mat-menu #profileMenu="matMenu">
-        <!-- Add profile submenu items here -->
-        <button mat-menu-item>Dashboard</button>
-        <button mat-menu-item>Profile</button>
-        <button mat-menu-item>setting</button>
-      </mat-menu>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb bg-transparent justify-content-center">
+                <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Cart</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
     </div>
-  </mat-toolbar>
+  </section>
+  
+  <section class="cart shopping page-wrapper">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+          <div class="product-list">
+            <form class="cart-form">
+              <table class="table shop_table shop_table_responsive cart" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th class="product-thumbnail">&nbsp;</th>
+                    <th class="product-name">Product</th>
+                    <th class="product-price">Price</th>
+                    <th class="product-quantity">Quantity</th>
+                    <th class="product-subtotal">Total</th>
+                    <th class="product-remove">&nbsp;</th>
+                    <th class="product-add">&nbsp;</th>
+                  </tr>
+                </thead>
+  
+                <tbody>
+                  <tr class="cart_item" *ngFor="let item of cartItems">
+                    <td class="product-thumbnail" data-title="Thumbnail">
+                      <a routerLink="/product-single"><img [src]="item.imagePath" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt=""></a>
+                    </td>
+  
+                    <td class="product-name" data-title="Product">
+                      <a href="#">{{ item.name }}</a>
+                    </td>
+  
+                    <td class="product-price" data-title="Price">
+                      <span class="amount"><span class="currencySymbol">{{ item.price | currency }}</span></span>
+                    </td>
+  
+                    <td class="product-quantity" data-title="Quantity">
+                      <div class="quantity">
+                        <label class="sr-only">Quantity</label>
+                        <input type="number" id="qty" class="input-text qty text" step="1" min="0" max="9" [(ngModel)]="item.quantity" title="Qty" size="4">
+                      </div>
+                    </td>
+  
+                    <td class="product-subtotal" data-title="Total">
+                      <span class="amount"><span class="currencySymbol">{{ item.total | currency }}</span></span>
+                    </td>
+  
+                    <td class="product-remove" data-title="Remove">
+                      <!-- <a href="#" class="remove" aria-label="Remove this item" (click)="removeFromCart(item)">remove</a> -->
+                      <button class="add-to-cart" (click)="removeFromCart(item)">remove</button>
+                    </td>
+  
+                    <td class="product-add" data-title="Add to Cart">
+                      <button class="add-to-cart" (click)="addToCart(item)">Add to Cart</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row justify-content-end">
+        <div class="col-lg-4">
+          <div class="cart-info card p-4 mt-4">
+            <h4 class="mb-4">Cart totals</h4>
+            <ul class="list-unstyled mb-4">
+              <li class="d-flex justify-content-between pb-2 mb-3">
+                <h5>Subtotal</h5>
+                <span>{{ getTotal() | currency }}</span>
+              </li>
+              <li class="d-flex justify-content-between pb-2 mb-3">
+                <h5>Shipping</h5>
+                <span>Free</span>
+              </li>
+              <li class="d-flex justify-content-between pb-2">
+                <h5>Total</h5>
+                <span>{{ getTotal() | currency }}</span>
+              </li>
+            </ul>
+            <a href="#" class="btn btn-primary btn-small">Proceed to checkout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   

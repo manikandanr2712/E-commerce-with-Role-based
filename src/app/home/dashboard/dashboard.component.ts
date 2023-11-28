@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { AuthService } from 'src/services/auth.service';
 import { StorageService } from 'src/services/storage.service';
 import { MenuItem } from '../menu-item';
 import { CartServiceService } from 'src/services/cart-service.service';
@@ -14,70 +12,88 @@ import { CartServiceService } from 'src/services/cart-service.service';
 export class DashboardComponent {
 
   private roles: string[] = [];
-isLoggedIn = false;
-showAdminBoard = false;
-showModeratorBoard = false;
-username?: string;
-selectedProduct: any; 
-menuItems: MenuItem[] = [
-  {
-    label: 'Products',
-    icon: 'donut_small',
-    subItems: [
-      { label: 'Fruits' },
-      { label: 'Vegetables' },
-      { label: 'Dairy' },
-    ],
-  },
-  {
-    label: 'About',
-    icon: 'help',
-    subItems:[]
-  },
-  {
-    label: 'Cart',
-    icon: 'add_shopping_cart',
-    subItems:[]
-  },
-  // Add more menu items as needed
-];
-cartCount: number = 0;
-badgeContent:number =0;
-constructor(
-  private storageService: StorageService,
-  private router: Router,
-  private activatedRoute: ActivatedRoute,
-  private cartService: CartServiceService
-) {}
+  isLoggedIn = false;
+  showAdminBoard = false;
+  showModeratorBoard = false;
+  username?: string;
+  selectedProduct: any;
+  menuItems: MenuItem[] = [
+    {
+      label: 'Products',
+      icon: 'donut_small',
+      subItems: [
+        { label: 'Fruits' },
+        { label: 'Vegetables' },
+        { label: 'Dairy' },
+      ],
+    },
+    {
+      label: 'About',
+      icon: 'help',
+      subItems: []
+    },
+    {
+      label: 'Cart',
+      icon: 'add_shopping_cart',
+      subItems: []
+    },
+    // Add more menu items as needed
+  ];
+  cartCount!: number;
+  badgeContents: number = 0;
+  badgeContent: number = 0;
 
-ngOnInit(): void {
-  this.isLoggedIn = this.storageService.isLoggedIn();
+  count: boolean = false;
+  constructor(
+    private storageService: StorageService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private cartService: CartServiceService
+  ) {
 
-  if (this.isLoggedIn) {
-    const user = this.storageService.getUser();
-    this.roles = user.role;
-
-    this.showAdminBoard = this.roles.includes('Administrator');
-    this.showModeratorBoard = this.roles.includes('User');
-
-    this.username = user.username;
+    this.getCartMethod();
   }
-  this.cartService.cartCount$.subscribe((count) => {
-    this.cartCount = count;
-    this.badgeContent = this.cartCount;
-    console.log(this.cartCount,"sss")
-  });
-}
 
-logout(): void {
-  this.storageService.clean();
-  this.router.navigate(['login'])
-}
+  ngOnInit(): void {
+    this.isLoggedIn = this.storageService.isLoggedIn();
 
-addProduct() {
-  this.router.navigate(['/dashboard/addproduct'], { relativeTo: this.activatedRoute });
-}
-addtocart() {
-  this.router.navigate(['/dashboard/add-to-cart']);
-}
+    if (this.isLoggedIn) {
+      const user = this.storageService.getUser();
+      this.roles = user.role;
+
+      this.showAdminBoard = this.roles.includes('Administrator');
+      this.showModeratorBoard = this.roles.includes('User');
+
+      this.username = user.username;
+    }
+    this.cartService.cartCount$.subscribe((count) => {
+      this.cartCount = count;
+      if (this.count === false) {
+        this.badgeContent = this.cartCount;
+
+        this.count = true;
+      } else {
+        this.badgeContent = this.cartCount;
+      }
+    });
+
+  }
+
+  logout(): void {
+    window.sessionStorage.removeItem("USER_KEY");
+    this.router.navigate([''])
+  }
+
+  addProduct() {
+    this.router.navigate(['/dashboard/addproduct'], { relativeTo: this.activatedRoute });
+  }
+  addtocart() {
+    this.router.navigate(['/dashboard/add-to-cart']);
+  }
+  getCartMethod() {
+    this.cartService.getCart().subscribe((response: any) => {
+      this.badgeContent = response.$values?.length;
+      this.cartService.getInitialData(this.badgeContent);
+    })
+  }
 }

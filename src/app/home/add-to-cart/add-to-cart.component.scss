@@ -68,3 +68,29 @@
   background-color: #007bff;
   color: #fff;
 }
+
+.quantity-buttons {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
+
+.quantity-buttons button {
+  margin-right: 5px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Align items vertically in the center */
+  padding: 16px; /* Add padding for better spacing */
+
+  /* Optional: Add styles for better aesthetics */
+  background-color: #f0f0f0;
+}
+
+.back-button {
+  /* Optional: Add styles for the back button */
+  // padding: 8px 16px;
+  font-size: 16px;
+}

@@ -1,25 +1,60 @@
 <div class="cart-details">
-  <h1>Cart Details</h1>
-  
-  <div class="cart-items">
-    <div class="cart-item" *ngFor="let item of cartItems; let i = index">
-      <img src="{{item.image}}" alt="Product Image">
-      <div class="item-details">
-        <h3>{{ item.name }}</h3>
-        <p>Price: {{ item.price }}</p>
-        <p>Quantity: {{ item.quantity }}</p>
-        <button  mat-mini-fab color="accent" (click)="decreaseQuantity(i)">-</button> 
-        <b>  {{ item.quantity }}  </b>
-        <button  mat-mini-fab color="accent" (click)="increaseQuantity(i)">+</button>
+  <div class="header-container">
+    <h1>Cart Details</h1>
+    
+    <button mat-icon-button class="back-button" (click)="back()"><mat-icon>keyboard_arrow_left</mat-icon></button>
+  </div>
+  <!-- Check if cartItems array is not empty -->
+  <ng-container *ngIf="cartItems?.length > 0; else noCart">
+    <div class="cart-items">
+      <div class="cart-item" *ngFor="let item of cartItems; let i = index">
+        <img
+          src="{{ '../../../assets/' + item.imagePath }}"
+          alt="Product Image"
+        />
+        <div class="item-details">
+          <h3>{{ item.name }}</h3>
+          <p>Price: {{ item.price | currency : "INR" }}/Kg</p>
+          <p>Quantity: {{ item.stockQuantity }}</p>
+          <div class="quantity-buttons">
+            <button
+              mat-mini-fab
+              color="accent"
+              (click)="decreaseQuantity(item)"
+            >
+              -
+            </button>
+            <b> {{ item.stockQuantity }} </b>
+            &nbsp;<button class="mr-2"
+              mat-mini-fab
+              color="accent"
+              (click)="increaseQuantity(item)"
+            >
+              +
+            </button>
+          </div>
+          <div class="row m-4">
+            <button mat-mini-fab color="warn" (click)="deleteItem(item)">
+              <mat-icon>delete_outline</mat-icon>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  
-  <div class="cart-summary">
-    <h2>Cart Summary</h2>
-    <p>Total Items: {{ cartItems.length }}</p>
-    <p>Total Price: {{ calculateTotalPrice() }}</p>
-  </div>
-  
-  <button class="checkout-button">Proceed to Checkout</button>
+
+    <div class="cart-summary">
+      <h2>Cart Summary</h2>
+      <p>Total Items: {{ cartItems.length }}</p>
+      <p>Total Price: {{ calculateTotalPrice() | currency : "INR" }}</p>
+    </div>
+
+    <button class="checkout-button" (click)="deleteAllItems()">Clear Cart</button
+    >&nbsp;&nbsp;
+    <button class="checkout-button">Proceed to Checkout</button>
+  </ng-container>
+
+  <!-- Display this when cartItems array is empty -->
+  <ng-template #noCart>
+    <p>No items in the cart.</p>
+  </ng-template>
 </div>

@@ -1,5 +1,5 @@
-
-<div fxLayout="row" fxLayoutAlign="center center" class="container">
+<h1>Fruits & Vegtables</h1><br>
+<div fxLayout="row" fxLayoutAlign="center center">
     <div fxLayout="row wrap" fxLayoutGap="16px">
       <div fxFlex.gt-sm="calc(25% - 16px)" fxFlex.xs="100%" *ngFor="let product of products">
         <mat-card class="product-card">
@@ -9,7 +9,16 @@
             <p mat-card-subtitle>{{ product.price | currency: 'INR' }} / kg</p>
             <div class="button-container">
               <!-- <button mat-raised-button color="primary" class="buy-now-button">Buy Now</button> -->
-              <button mat-raised-button color="accent" class="add-to-cart-button" (click)="addtocart(product)">Add to Cart</button>
+              <!-- <button mat-raised-button color="accent" class="add-to-cart-button" (click)="addtocart(product)">Add to Cart</button> -->
+              <button
+              mat-raised-button
+              color="accent"
+              class="add-to-cart-button"
+              [disabled]="isAddedToCart(product)"
+              (click)="addtocart(product)"
+            >
+              {{ isAddedToCart(product) ? 'Added to Cart' : 'Add to Cart' }}
+            </button>
             </div>
           </mat-card-content>
         </mat-card>

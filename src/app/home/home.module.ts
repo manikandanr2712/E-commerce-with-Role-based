@@ -20,12 +20,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProductListComponent } from './product-list/product-list.component';
 
 import { MatBadgeModule } from '@angular/material/badge';
+import { ShoppingCartIconComponent } from '../shopping-cart-icon/shopping-cart-icon.component';
+import { CartServiceService } from 'src/services/cart-service.service';
 @NgModule({
   declarations: [
     DashboardComponent,
     AddproductComponent,
     ToolbarComponent,
     ProductListComponent,
+    ShoppingCartIconComponent
   ],
   imports: [
     CommonModule,
@@ -46,6 +49,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatBadgeModule
 
   ],
+  providers: [CartServiceService],
   exports: [ToolbarComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
