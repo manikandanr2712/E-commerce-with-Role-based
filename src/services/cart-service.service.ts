@@ -11,49 +11,53 @@ export class CartServiceService {
   private cartCountSubject = new BehaviorSubject<number>(0);
   cartCount$ = this.cartCountSubject.asObservable();
 
-  constructor(private httpclient: HttpClient) { }
+
+  constructor(private httpclient: HttpClient) {
+    this.cartCountSubject.next(0);
+   }
 
   
   getCartCount(): number {
     var sub = this.cartCountSubject.value === 0 ? this.data : this.cartCountSubject.value;
-    console.log("thi",sub)
+    console.log("service xounrt",sub)
     return sub;
   }
 
   getInitialData(data: any) {
     this.data = data ? data : 0;
-    console.log("thi",this.data)
+    console.log("servie",this.data)
   }
 
   addToCart(): void {
-    const currentCount = this.cartCountSubject.value == 0 ? this.data : this.cartCountSubject.value;
+    console.log("oops", this.cartCountSubject.value,this.data)
+    const currentCount = this.cartCountSubject.value;
     this.cartCountSubject.next(currentCount + 1);
   }
 
   updateCartCount(count: number): void {
     this.cartCountSubject.next(count);
-    console.log("mani",count)
   }
   addCart(product: any) {
     const apiUrl = `${this.apiUrl}/Cart/AddCart`;
     return this.httpclient.post(apiUrl, product);
   }
-  getCart()  {
-    const apiUrl = `${this.apiUrl}/Cart/GetCart`;
+  getCart(userId: string)  {
+    const apiUrl = `${this.apiUrl}/Cart/GetCart/${userId}`;
     return this.httpclient.get(apiUrl);
   }
 
   updateCart(cartItems: any[]){
+    // var id = cartItems.id
     const apiUrl = `${this.apiUrl}/Cart/UpdateCart`;
     return this.httpclient.put<any>(apiUrl, cartItems);
   }
-  deleteCartItem(cartItemId: number) {
-    const url = `${this.apiUrl}/Cart/DeleteCart/${cartItemId}`;
+  deleteCartItem(cartItemId: number,userId: any) {
+    const url = `${this.apiUrl}/Cart/DeleteCart/${userId}/${cartItemId}`;
     return this.httpclient.delete(url);
   }
 
-  deleteAllCartItems() {
-    const url = `${this.apiUrl}/Cart/DeleteAll`;
+  deleteAllCartItems(userId: any) {
+    const url = `${this.apiUrl}/Cart/DeleteAll/${userId}`;
     return this.httpclient.delete(url);
   }
   

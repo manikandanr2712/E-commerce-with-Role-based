@@ -19,7 +19,9 @@ export class LoginComponent {
   }
 
   ngOnInit() {
-    this.createLoginForm()
+    this.createLoginForm();
+    this.storageService.clean();
+     sessionStorage.removeItem('user-detail');
   }
 
   createLoginForm() {

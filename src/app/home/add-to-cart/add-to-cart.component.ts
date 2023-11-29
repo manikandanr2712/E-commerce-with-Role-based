@@ -1,21 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CartServiceService } from 'src/services/cart-service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-to-cart',
   templateUrl: './add-to-cart.component.html',
   styleUrls: ['./add-to-cart.component.scss']
 })
-export class AddToCartComponent {
+export class AddToCartComponent implements OnInit,OnDestroy {
+  private cartItemsSubscription: Subscription | undefined;
 
   cartItems: any;
-  cartCount!: number;
-  badgeContents: number = 0;
   badgeContent: number = 0;
-  constructor(private snackBar: MatSnackBar, private cartService: CartServiceService,private router: Router) {
+  userId: any;
+
+  constructor(private snackBar: MatSnackBar, private cartService: CartServiceService, private router: Router) {
+  
+    const userdataString = sessionStorage.getItem('user-detail');
+    const decodedToken = userdataString ? JSON.parse(userdataString) : null;
+    this.userId = decodedToken.userId;
     this.getCart();
+  }
+
+  ngOnInit(): void {    
   }
 
   calculateTotalPrice(): number {
@@ -41,26 +50,23 @@ export class AddToCartComponent {
   }
 
   deleteItem(item: any): void {
-    this.cartService.deleteCartItem(item.id).subscribe({
+    this.cartService.deleteCartItem(item.id,this.userId).subscribe({
       next: (response: any) => {
         console.log('Item deleted successfully');
         if (response.success) {
           this.getCart();
         } else {
           console.error(response.message);
-          // Handle other errors as needed
         }
       },
       error: (error: any) => {
         console.error('Error deleting item:', error);
-        // Handle other errors as needed
       }
     });
   }
-  
-  
+
   clearCart(): void {
-    this.cartService.deleteAllCartItems().subscribe({
+    this.cartService.deleteAllCartItems(this.userId).subscribe({
       next: (response: any) => {
         console.log('All items deleted successfully');
         if (response.success) {
@@ -69,15 +75,14 @@ export class AddToCartComponent {
           this.updateCart(this.cartItems);
         } else {
           console.error(response.message);
-          // Handle other errors as needed
         }
       },
       error: (error: any) => {
         console.error('Error deleting all items:', error);
-        // Handle other errors as needed
       }
     });
   }
+
   updateCart(item?: any): void {
     this.cartService.updateCart(this.cartItems).subscribe((response: any) => {
       this.cartItems = response.$values;
@@ -85,33 +90,46 @@ export class AddToCartComponent {
   }
 
   getCart() {
-    this.cartService.getCart().subscribe((response: any) => {
+    // Unsubscribe from previous subscription if exists
+    if (this.cartItemsSubscription) {
+      this.cartItemsSubscription.unsubscribe();
+    }
+
+    this.cartItemsSubscription = this.cartService.getCart(this.userId).subscribe((response: any) => {
       this.cartItems = response.$values;
       this.badgeContent = response.$values?.length;
-      
+
+      console.log(this.badgeContent, "badge");
       this.cartService.updateCartCount(this.badgeContent);
-      console.log(this.badgeContent,"badge");
     });
   }
+
   deleteAllItems(): void {
-    this.cartService.deleteAllCartItems().subscribe({
+    this.cartService.deleteAllCartItems(this.userId).subscribe({
       next: (response: any) => {
         console.log('All items deleted successfully');
         if (response.success) {
           this.getCart();
-          this.cartService.updateCartCount(0);
+          this.cartService.updateCartCount(this.cartItems.length);
         } else {
           console.error(response.message);
-          // Handle other errors as needed
         }
       },
       error: (error: any) => {
         console.error('Error deleting all items:', error);
-        // Handle other errors as needed
       }
     });
   }
+
+  ngOnDestroy(): void {
+    // Unsubscribe from the subscription to avoid memory leaks
+    if (this.cartItemsSubscription) {   
+      this.userId = '';
+      this.cartItemsSubscription.unsubscribe();
+    }
+  }
+
   back() {
-    this.router.navigate(['/dashboard'])
+    this.router.navigate(['/dashboard']);
   }
 }
