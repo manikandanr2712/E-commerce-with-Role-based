@@ -91,7 +91,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   logout(): void {
     sessionStorage.removeItem('user-detail');
-    this.router.navigate([''])
+    this.router.navigate(['/']);
   }
 
   addProduct() {

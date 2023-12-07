@@ -132,4 +132,9 @@ export class AddToCartComponent implements OnInit,OnDestroy {
   back() {
     this.router.navigate(['/dashboard']);
   }
+  proceed() {
+    this.router.navigate(['/dashboard/address']);
+  }
+
+  
 }

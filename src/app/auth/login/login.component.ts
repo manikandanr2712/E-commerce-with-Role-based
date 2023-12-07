@@ -4,6 +4,7 @@ import { AuthService } from 'src/services/auth.service';
 import { MatchValidator } from '../password-validation';
 import { StorageService } from 'src/services/storage.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent {
   loginForm!: FormGroup;
   roles: string[] = [];
   constructor(private fb: FormBuilder,private authService: AuthService,private storageService: StorageService,
-              private router: Router) {
+              private router: Router,private snackBar: MatSnackBar,) {
 
   }
 
@@ -40,13 +41,12 @@ export class LoginComponent {
  buttonTriggered(evt: any){
   this.authService.login(this.loginForm.value).subscribe({
     next: (data: any) => {
-      console.log(data,"daa");
       this.storageService.saveUser(data);
       this.roles = this.storageService.getUser().roles;
       this.router.navigate(['/dashboard']);
     },
-    error: (err: any) => {
-      console.log(err);
+    error: (err:  Error | any) => {
+      this.snackBar.open(`${err.error}`, 'Close', { duration: 2000 });
     }
   });
 }

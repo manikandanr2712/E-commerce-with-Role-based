@@ -8,6 +8,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SaveButtonComponent } from './reusable-comp/save-button/save-button.component';
+import { SharedModule } from '../_helpers/shared.module';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { SaveButtonComponent } from './reusable-comp/save-button/save-button.com
     CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,    
+    SharedModule,
   ],
 })
 export class AuthModule { }

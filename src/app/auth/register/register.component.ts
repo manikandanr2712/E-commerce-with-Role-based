@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from
 import { Router } from '@angular/router';
 import { MatchValidator } from '../password-validation';
 import { AuthService } from 'src/services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,8 @@ import { AuthService } from 'src/services/auth.service';
 })
 export class RegisterComponent {
   registrationForm!: FormGroup;
-  constructor(private fb: FormBuilder,private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,
+    private snackBar: MatSnackBar) {
 
   }
 
@@ -28,9 +30,9 @@ export class RegisterComponent {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]]
     },
-    {
-      validator: MatchValidator.validate.bind(this)
-    })
+      {
+        validator: MatchValidator.validate.bind(this)
+      })
     console.log(this.registrationForm)
   }
 
@@ -38,8 +40,8 @@ export class RegisterComponent {
     return this.registrationForm.controls;
   }
 
-  onCancel() {   
-     this.createRegistrationForm();    
+  onCancel() {
+    this.createRegistrationForm();
   }
 
   mobileNumberValidator(): ValidatorFn {
@@ -53,13 +55,14 @@ export class RegisterComponent {
     };
   }
 
-  buttonTriggered(evt: any){
+  buttonTriggered(evt: any) {
     this.authService.register(this.registrationForm.value).subscribe({
       next: (data: any) => {
-        console.log(data);
+        this.snackBar.open(`Registered Successfully`, 'Close', { duration: 2000 });
+        this.router.navigate(['/login']);
       },
-      error: (err: Error) => {
-        console.log(err);
+      error: (err: Error | any) => {
+        this.snackBar.open(`${err?.error}`, 'Close', { duration: 2000 });
       }
     });
   }

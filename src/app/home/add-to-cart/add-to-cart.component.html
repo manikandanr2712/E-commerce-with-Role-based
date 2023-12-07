@@ -2,7 +2,7 @@
   <div class="header-container">
     <h1>Cart Details</h1>
     
-    <button mat-icon-button class="back-button" (click)="back()"><mat-icon>keyboard_arrow_left</mat-icon></button>
+    <button mat-icon-button class="back-button" (click)="back()" style="border: 1px solid #ccc;"><mat-icon>keyboard_arrow_left</mat-icon></button>
   </div>
   <!-- Check if cartItems array is not empty -->
   <ng-container *ngIf="cartItems?.length > 0; else noCart">
@@ -50,7 +50,7 @@
 
     <button class="checkout-button" (click)="deleteAllItems()">Clear Cart</button
     >&nbsp;&nbsp;
-    <button class="checkout-button">Proceed to Checkout</button>
+    <button class="checkout-button" (click)="proceed()">Proceed to Checkout</button>
   </ng-container>
 
   <!-- Display this when cartItems array is empty -->

@@ -6,47 +6,30 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddproductComponent } from './addproduct/addproduct.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatDividerModule } from '@angular/material/divider';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatCardModule } from '@angular/material/card';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProductListComponent } from './product-list/product-list.component';
-
-import { MatBadgeModule } from '@angular/material/badge';
 import { ShoppingCartIconComponent } from '../shopping-cart-icon/shopping-cart-icon.component';
 import { CartServiceService } from 'src/services/cart-service.service';
+import { AddressComponent } from './address/address.component';
+import { SharedModule } from '../_helpers/shared.module';
 @NgModule({
   declarations: [
     DashboardComponent,
     AddproductComponent,
     ToolbarComponent,
     ProductListComponent,
-    ShoppingCartIconComponent
+    ShoppingCartIconComponent,
+    AddressComponent
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule,
-    ReactiveFormsModule,
+    HomeRoutingModule,    
     FormsModule,
+    ReactiveFormsModule,
     RouterModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatMenuModule,
-    MatDividerModule,
-    FlexLayoutModule,
-    MatSnackBarModule,
-    MatCardModule,
-    MatBadgeModule
+    FlexLayoutModule,    
+    SharedModule,
 
   ],
   providers: [CartServiceService],

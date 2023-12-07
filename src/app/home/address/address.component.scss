@@ -1,0 +1,53 @@
+/* Add your custom styles here */
+.cart-details {
+  // margin: 20px;
+  text-align: center;
+}
+
+// .address-container {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 10px;
+// }
+
+.address-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 10px;
+}
+
+
+.error {
+  color: red;
+}
+
+.submit-button {
+  margin-top: 10px;
+}
+
+form {
+  padding: 10px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+}
+.example-button-row {
+  display: table-cell;
+  max-width: 600px;
+}
+
+.example-button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}

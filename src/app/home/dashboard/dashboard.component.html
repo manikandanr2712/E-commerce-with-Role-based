@@ -53,7 +53,7 @@
   
     <!-- <mat-icon [matBadge]="badgeContent" matBadgeColor="warn" class="cart-icon" style="cursor: pointer;" (click)="addtocart()">shopping_cart</mat-icon> -->
    <!-- Use the new shopping cart component -->
-   <app-shopping-cart-icon [badgeContent]="badgeContent" (cartClicked)="addtocart()"></app-shopping-cart-icon>
+   <app-shopping-cart-icon [badgeContent]="badgeContent" (cartClicked)="addtocart()" style="vertical-align: middle;color: white;"></app-shopping-cart-icon>
 
     <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-b" >
       <img src="../../assets/Fruits/apple.png" alt="Profile" class="profile-img">

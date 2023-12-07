@@ -19,17 +19,14 @@ export class CartServiceService {
   
   getCartCount(): number {
     var sub = this.cartCountSubject.value === 0 ? this.data : this.cartCountSubject.value;
-    console.log("service xounrt",sub)
     return sub;
   }
 
   getInitialData(data: any) {
     this.data = data ? data : 0;
-    console.log("servie",this.data)
   }
 
   addToCart(): void {
-    console.log("oops", this.cartCountSubject.value,this.data)
     const currentCount = this.cartCountSubject.value;
     this.cartCountSubject.next(currentCount + 1);
   }
