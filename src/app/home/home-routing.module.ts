@@ -5,6 +5,7 @@ import { AddproductComponent } from './addproduct/addproduct.component';
 import { AddToCartComponent } from './add-to-cart/add-to-cart.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { AddressComponent } from './address/address.component';
+import { CompleteorderComponent } from './completeorder/completeorder.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: "address",
         component: AddressComponent,
+      },
+      {
+        path: "complete-order",
+        component: CompleteorderComponent,
       }
     ]
   }

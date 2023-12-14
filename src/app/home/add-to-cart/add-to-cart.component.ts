@@ -98,8 +98,6 @@ export class AddToCartComponent implements OnInit,OnDestroy {
     this.cartItemsSubscription = this.cartService.getCart(this.userId).subscribe((response: any) => {
       this.cartItems = response.$values;
       this.badgeContent = response.$values?.length;
-
-      console.log(this.badgeContent, "badge");
       this.cartService.updateCartCount(this.badgeContent);
     });
   }
@@ -107,7 +105,6 @@ export class AddToCartComponent implements OnInit,OnDestroy {
   deleteAllItems(): void {
     this.cartService.deleteAllCartItems(this.userId).subscribe({
       next: (response: any) => {
-        console.log('All items deleted successfully');
         if (response.success) {
           this.getCart();
           this.cartService.updateCartCount(this.cartItems.length);

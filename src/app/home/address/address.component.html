@@ -1,160 +1,135 @@
 <div class="cart-details">
   <h1>Shipping Address</h1>
 
-  <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
-    <div class="address-container">
-      <div class="address-fields">
-        <mat-form-field
-          [ngClass]="{
-            error:
-              addressForm.get('name').invalid && addressForm.get('name').touched
-          }"
-        >
-          <input matInput placeholder="Name" formControlName="name" />
-          <mat-error *ngIf="addressForm.get('name').hasError('required')"
-            >Name is required.</mat-error
-          >
-        </mat-form-field>
-
-        <mat-form-field
-          [ngClass]="{
-            error:
-              addressForm.get('mobile').invalid &&
-              addressForm.get('mobile').touched
-          }"
-        >
-          <input matInput placeholder="Mobile" formControlName="mobile" />
-          <mat-error *ngIf="addressForm.get('mobile').hasError('required')"
-            >Mobile is required.</mat-error
-          >
-          <mat-error *ngIf="addressForm.get('mobile').hasError('pattern')"
-            >Invalid mobile number.</mat-error
-          >
-        </mat-form-field>
-
-        <mat-form-field
-          [ngClass]="{
-            error:
-              addressForm.get('email').invalid &&
-              addressForm.get('email').touched
-          }"
-        >
-          <input matInput placeholder="Email" formControlName="email" />
-          <mat-error *ngIf="addressForm.get('email').hasError('required')"
-            >Email is required.</mat-error
-          >
-          <mat-error *ngIf="addressForm.get('email').hasError('email')"
-            >Invalid email address.</mat-error
-          >
-        </mat-form-field>
-
-        <!-- Country Dropdown -->
-        <mat-form-field
-          [ngClass]="{
-            error:
-              addressForm.get('country').invalid &&
-              addressForm.get('country').touched
-          }"
-        >
-          <mat-label>Country</mat-label>
-          <mat-select
-            placeholder="Select Country"
-            formControlName="country"
-            (selectionChange)="loadStates()"
-          >
-            <mat-option
-              *ngFor="let country of countries"
-              [value]="country.id"
-              >{{ country.name }}</mat-option
-            >
-          </mat-select>
-          <mat-error *ngIf="addressForm.get('country').hasError('required')"
-            >Country is required.</mat-error
-          >
-        </mat-form-field>
-
-        <!-- State Dropdown -->
-        <mat-form-field
-          [ngClass]="{
-            error:
-              addressForm.get('state').invalid &&
-              addressForm.get('state').touched
-          }"
-        >
-          <mat-label>State</mat-label>
-          <mat-select
-            placeholder="Select State"
-            formControlName="state"
-            (selectionChange)="loadCities()"
-          >
-          <mat-option [value]="">No State Found</mat-option>
-            <mat-option *ngFor="let state of states" [value]="state.id">{{
-              state.name
-            }}</mat-option>
-          </mat-select>
-          <mat-error *ngIf="addressForm.get('state').hasError('required')"
-            >State is required.</mat-error
-          >
-        </mat-form-field>
-
-        <!-- City Dropdown -->
-        <mat-form-field
-          [ngClass]="{
-            error:
-              addressForm.get('city').invalid && addressForm.get('city').touched
-          }"
-        >
-          <mat-label>City</mat-label>
-          <mat-select placeholder="Select City" formControlName="city">
-            <mat-option [value]="">No City Found</mat-option>
-            <mat-option *ngFor="let city of cities" [value]="city.id">{{
-              city.name
-            }}</mat-option>
-          </mat-select>
-          <mat-error *ngIf="addressForm.get('city').hasError('required')"
-            >City is required.</mat-error
-          >
-        </mat-form-field>
-
-        <mat-form-field
-          [ngClass]="{
-            error:
-              addressForm.get('street').invalid &&
-              addressForm.get('street').touched
-          }"
-        >
-          <input matInput placeholder="Street" formControlName="street" />
-          <mat-error *ngIf="addressForm.get('street').hasError('required')"
-            >Street is required.</mat-error
-          >
-        </mat-form-field>
-
-        <mat-form-field
-          [ngClass]="{
-            error:
-              addressForm.get('zipCode').invalid &&
-              addressForm.get('zipCode').touched
-          }"
-        >
-          <input matInput placeholder="Zip Code" formControlName="zipCode" />
-          <mat-error *ngIf="addressForm.get('zipCode').hasError('required')"
-            >Zip Code is required.</mat-error
-          >
-        </mat-form-field>
-      </div>
+  <ng-container *ngIf="addressList && addressList.length > 0">
+    <h2>Choose the delivery address</h2>
+    <mat-radio-group (change)="onRadioChange($event)">
+      <mat-radio-button *ngFor="let address of addressList" [value]="address">
+        <mat-card class="p-30">
+          {{ address.street }}<br />
+          {{ address.cityName }}<br />
+          {{ address.stateName }}<br />
+          {{ address.countryName }}
+        </mat-card>
+      </mat-radio-button>
+    </mat-radio-group>
+    <div class="text-center m-4">
+      <button mat-raised-button (click)="toggleFormVisibility()">
+        Add New Address
+      </button>
+      &nbsp;&nbsp;
+      <button color="primary" mat-raised-button (click)="completeOrder()">Pay Now</button>
+      &nbsp;&nbsp;
+      <button mat-raised-button (click)="back()">Back</button>
     </div>
+  </ng-container>
+  <ng-container *ngIf="showForm">
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+      <div class="address-container">
+        <div class="address-fields">
+          <mat-form-field [ngClass]="{
+              error:
+                addressForm.get('name').invalid &&
+                addressForm.get('name').touched
+            }">
+            <input matInput placeholder="Name" formControlName="name" />
+            <mat-error *ngIf="addressForm.get('name').hasError('required')">Name is required.</mat-error>
+          </mat-form-field>
 
+          <mat-form-field [ngClass]="{
+              error:
+                addressForm.get('mobile').invalid &&
+                addressForm.get('mobile').touched
+            }">
+            <input matInput placeholder="Mobile" formControlName="mobile" />
+            <mat-error *ngIf="addressForm.get('mobile').hasError('required')">Mobile is required.</mat-error>
+            <mat-error *ngIf="addressForm.get('mobile').hasError('pattern')">Invalid mobile number.</mat-error>
+          </mat-form-field>
 
-    <div class="example-button-row">
-      <button mat-raised-button color="primary"
-      mat-raised-button
-      type="submit"
-      [disabled]="!addressForm.valid"
-      class="submit-button">Submit</button> &nbsp;&nbsp;
-      
-      <button mat-raised-button (click)="clear()" [disabled]="!addressForm.valid">Clear</button>
+          <mat-form-field [ngClass]="{
+              error:
+                addressForm.get('email').invalid &&
+                addressForm.get('email').touched
+            }">
+            <input matInput placeholder="Email" formControlName="email" />
+            <mat-error *ngIf="addressForm.get('email').hasError('required')">Email is required.</mat-error>
+            <mat-error *ngIf="addressForm.get('email').hasError('email')">Invalid email address.</mat-error>
+          </mat-form-field>
+
+          <!-- Country Dropdown -->
+          <mat-form-field [ngClass]="{
+              error:
+                addressForm.get('country').invalid &&
+                addressForm.get('country').touched
+            }">
+            <mat-label>Country</mat-label>
+            <mat-select placeholder="Select Country" formControlName="country" (selectionChange)="loadStates()">
+              <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="addressForm.get('country').hasError('required')">Country is required.</mat-error>
+          </mat-form-field>
+
+          <!-- State Dropdown -->
+          <mat-form-field [ngClass]="{
+              error:
+                addressForm.get('state').invalid &&
+                addressForm.get('state').touched
+            }">
+            <mat-label>State</mat-label>
+            <mat-select placeholder="Select State" formControlName="state" (selectionChange)="loadCities()">
+              <mat-option [value]="">No State Found</mat-option>
+              <mat-option *ngFor="let state of states" [value]="state.id">{{
+                state.name
+                }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="addressForm.get('state').hasError('required')">State is required.</mat-error>
+          </mat-form-field>
+
+          <!-- City Dropdown -->
+          <mat-form-field [ngClass]="{
+              error:
+                addressForm.get('city').invalid &&
+                addressForm.get('city').touched
+            }">
+            <mat-label>City</mat-label>
+            <mat-select placeholder="Select City" formControlName="city">
+              <mat-option [value]="">No City Found</mat-option>
+              <mat-option *ngFor="let city of cities" [value]="city.id">{{
+                city.name
+                }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="addressForm.get('city').hasError('required')">City is required.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field [ngClass]="{
+              error:
+                addressForm.get('street').invalid &&
+                addressForm.get('street').touched
+            }">
+            <input matInput placeholder="Street" formControlName="street" />
+            <mat-error *ngIf="addressForm.get('street').hasError('required')">Street is required.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field [ngClass]="{
+              error:
+                addressForm.get('zipCode').invalid &&
+                addressForm.get('zipCode').touched
+            }">
+            <input matInput placeholder="Zip Code" formControlName="zipCode" />
+            <mat-error *ngIf="addressForm.get('zipCode').hasError('required')">Zip Code is required.</mat-error>
+          </mat-form-field>
+        </div>
       </div>
-  </form>
 
-  
+      <div class="example-button-row">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!addressForm.valid" class="submit-button">
+          Submit
+        </button>
+        &nbsp;&nbsp;
+
+        <button mat-raised-button (click)="clearForm()">Clear</button>
+        <button mat-raised-button (click)="cancel()">Cancel</button>
+      </div>
+    </form>
+  </ng-container>
 </div>

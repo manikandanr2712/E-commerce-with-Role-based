@@ -19,7 +19,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   private productsSubscription: Subscription | undefined;
   userId: any = '';
 
-  constructor(private router: Router, private cartService: CartServiceService, private snackBar: MatSnackBar, private productService: ProductService) {
+  constructor(private cartService: CartServiceService, private snackBar: MatSnackBar, private productService: ProductService) {
   }
 
   ngOnInit() {

@@ -1,67 +1,65 @@
-import { Component } from '@angular/core';
-import { MatMenuPanel } from '@angular/material/menu';
+import { Component, OnInit } from '@angular/core';
+import { WindowRefService } from 'src/services/window-ref.service';
 
+declare var Razorpay: any;
 
 @Component({
   selector: 'app-dah',
   templateUrl: './dah.component.html',
-  styleUrls: ['./dah.component.scss']
+  styleUrls: ['./dah.component.scss'],
+  providers: [WindowRefService]
 })
-export class DahComponent {
-  isMenuOpen = false;
-  isSubmenuOpen = false;
-  badgeContent = "3";
+export class DahComponent implements OnInit {
 
-  cartItems: any[] = [
-    {
-      name: 'Product 1',
-      price: 20.99,
-      quantity: 2,
-      total: 41.98,
-      imagePath: 'path/to/image1.jpg'
-    },
-    {
-      name: 'Product 2',
-      price: 15.49,
-      quantity: 1,
-      total: 15.49,
-      imagePath: 'path/to/image2.jpg'
-    },
-    // Add more items as needed
-  ];
+  constructor(private winRef: WindowRefService) {}
 
-  getTotal(): number {
-    return this.cartItems.reduce((total, item) => total + item.total, 0);
+  ngOnInit() {}
+
+  createRzpayOrder() {
+    // Call your API to create an order and obtain the order_id
+    const order_id = 'your_obtained_order_id'; // Replace this with the actual order_id
+
+    console.log(order_id);
+
+    // Call the payWithRazor method with the obtained order_id
+    // this.payWithRazor(order_id);
   }
 
-  removeFromCart(item: any): void {
-    const index = this.cartItems.indexOf(item);
-    if (index !== -1) {
-      this.cartItems.splice(index, 1);
+  payWithRazor() {
+    const options: any = {
+      // ... (your existing options)
+
+ // Pass the order_id obtained from createRzpayOrder
+      description: "testinf added",
+      currency :"INR",
+      amount: 100,
+      name: "Mani",
+      key: "rzp_test_7R0Rw8Mp881vmU",
+      image: "https://i.imgur.com/FApqk3D.jpeg",
+      prefill: {
+        name: "Organic Store",
+        email: "mani@gmail.com",
+        phone: 9952571838
+      },
+      theme: {
+        color: '#37254'
+      },
+      modal: {
+        ondismiss: () => {
+          console.log("dismissed");
+        }
+      }
+
+      // ... (your existing options)
+    };
+
+    const successcallback = (paymentid:any) => {
+      console.log("paymentid",paymentid);
     }
-  }
-
-  addToCart(item: any): void {
-    // Check if the item is already in the cart
-    const existingItem = this.cartItems.find(cartItem => cartItem.name === item.name);
-
-    if (existingItem) {
-      // If the item is already in the cart, increase the quantity
-      existingItem.quantity++;
-      existingItem.total = existingItem.quantity * existingItem.price;
-    } else {
-      // If the item is not in the cart, add it
-      const newItem = { ...item, quantity: 1, total: item.price };
-      this.cartItems.push(newItem);
-    }
-  }
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-    this.isSubmenuOpen = false; // Close submenu when menu is toggled
-  }
-
-  toggleSubmenu() {
-    this.isSubmenuOpen = !this.isSubmenuOpen;
-  }
   
+    const failurecallback = (paymentid:any) => {
+      console.log("faliurecallback",paymentid);
+    }
+  Razorpay.open(options,successcallback,failurecallback)
+  }
 }

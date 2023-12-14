@@ -13,12 +13,14 @@ import { DahComponent } from './dah/dah.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from './_helpers/shared.module';
+import { CompleteorderComponent } from './home/completeorder/completeorder.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomepageComponent,
     AddToCartComponent,
-    DahComponent
+    DahComponent,
+    CompleteorderComponent
   ],
   imports: [
     BrowserModule,

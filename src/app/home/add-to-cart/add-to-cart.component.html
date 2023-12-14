@@ -1,35 +1,25 @@
 <div class="cart-details">
   <div class="header-container">
     <h1>Cart Details</h1>
-    
-    <button mat-icon-button class="back-button" (click)="back()" style="border: 1px solid #ccc;"><mat-icon>keyboard_arrow_left</mat-icon></button>
+
+    <button mat-icon-button class="back-button" (click)="back()"
+      style="border: 1px solid #ccc;"><mat-icon>keyboard_arrow_left</mat-icon></button>
   </div>
   <!-- Check if cartItems array is not empty -->
   <ng-container *ngIf="cartItems?.length > 0; else noCart">
     <div class="cart-items">
       <div class="cart-item" *ngFor="let item of cartItems; let i = index">
-        <img
-          src="{{ '../../../assets/' + item.imagePath }}"
-          alt="Product Image"
-        />
+        <img src="{{ '../../../assets/' + item.imagePath }}" alt="Product Image" />
         <div class="item-details">
           <h3>{{ item.name }}</h3>
           <p>Price: {{ item.price | currency : "INR" }}/Kg</p>
           <p>Quantity: {{ item.stockQuantity }}</p>
           <div class="quantity-buttons">
-            <button
-              mat-mini-fab
-              color="accent"
-              (click)="decreaseQuantity(item)"
-            >
+            <button mat-mini-fab color="accent" (click)="decreaseQuantity(item)">
               -
             </button>
             <b> {{ item.stockQuantity }} </b>
-            &nbsp;<button class="mr-2"
-              mat-mini-fab
-              color="accent"
-              (click)="increaseQuantity(item)"
-            >
+            &nbsp;<button class="mr-2" mat-mini-fab color="accent" (click)="increaseQuantity(item)">
               +
             </button>
           </div>
@@ -48,8 +38,7 @@
       <p>Total Price: {{ calculateTotalPrice() | currency : "INR" }}</p>
     </div>
 
-    <button class="checkout-button" (click)="deleteAllItems()">Clear Cart</button
-    >&nbsp;&nbsp;
+    <button class="checkout-button" (click)="deleteAllItems()">Clear Cart</button>&nbsp;&nbsp;
     <button class="checkout-button" (click)="proceed()">Proceed to Checkout</button>
   </ng-container>
 
