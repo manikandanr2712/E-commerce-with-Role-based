@@ -1,85 +1,101 @@
 <div class="col-md-12">
     <div class="card card-container bg-img">
-      <img
-        id="profile-img"
-        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        class="profile-img-card"
-      />
-      <form [formGroup]="registrationForm">
-        <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input type="text" id="firstName" class="form-control" formControlName="firstName">
-            <div *ngIf="formError['firstName']?.invalid && (formError['firstName'].dirty || formError['firstName']?.touched)" class="alert mt-2 alert-danger">
-                <div *ngIf="formError['firstName'].errors?.['required']">
-                    First name is required.
+        <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
+        <form [formGroup]="registrationForm">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" class="form-control" formControlName="firstName" />
+                <div *ngIf="
+            formError['firstName']?.invalid &&
+            (formError['firstName'].dirty || formError['firstName']?.touched)
+          " class="alert mt-2 alert-danger">
+                    <div *ngIf="formError['firstName'].errors?.['required']">
+                        First name is required.
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input type="text" id="lastName"  class="form-control" formControlName="lastName">
-            <div *ngIf="formError['lastName']?.invalid && (formError['lastName'].dirty || formError['lastName']?.touched)" class="alert mt-2 alert-danger">
-                <div *ngIf="formError['lastName'].errors?.['required']">
-                    Last name is required.
+
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" class="form-control" formControlName="lastName" />
+                <div *ngIf="
+            formError['lastName']?.invalid &&
+            (formError['lastName'].dirty || formError['lastName']?.touched)
+          " class="alert mt-2 alert-danger">
+                    <div *ngIf="formError['lastName'].errors?.['required']">
+                        Last name is required.
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="emailId">EmailId</label>
-            <input type="text" id="emailId" class="form-control" formControlName="emailId">
-            <div *ngIf="formError['emailId']?.invalid && (formError['emailId'].dirty || formError['emailId']?.touched)" class="alert mt-2 alert-danger">
-                <div *ngIf="formError['emailId'].errors?.['required']">
-                    Email is required.
-                </div>
-                <div *ngIf="formError['emailId'].errors?.['email']">
-                    Invalid.
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="mobileNumber">Mobile Number</label>
-            <input type="text" id="mobileNumber" class="form-control" formControlName="mobileNumber">
-            <div *ngIf="formError['mobileNumber']?.invalid && (formError['mobileNumber'].dirty || formError['mobileNumber']?.touched)" class="alert mt-2 alert-danger">
-                <div *ngIf="formError['mobileNumber'].errors?.['required']">
-                    Mobile number is required.
-                </div>
-                <div *ngIf="formError['mobileNumber'].errors?.['mobileNumber']">
-                    Mobile number must be exactly 10 digits.
+            <div class="form-group">
+                <label for="emailId">EmailId</label>
+                <input type="text" id="emailId" class="form-control" formControlName="emailId" />
+                <div *ngIf="
+            formError['emailId']?.invalid &&
+            (formError['emailId'].dirty || formError['emailId']?.touched)
+          " class="alert mt-2 alert-danger">
+                    <div *ngIf="formError['emailId'].errors?.['required']">
+                        Email is required.
+                    </div>
+                    <div *ngIf="formError['emailId'].errors?.['email']">Invalid.</div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" class="form-control" formControlName="password">
-            <div *ngIf="formError['password']?.invalid && (formError['password'].dirty || formError['password']?.touched)" class="alert mt-2 alert-danger">
-                <div *ngIf="formError['password'].errors?.['required']">
-                    Password is required.
+            <div class="form-group">
+                <label for="mobileNumber">Mobile Number</label>
+                <input type="text" id="mobileNumber" class="form-control" formControlName="mobileNumber" />
+                <div *ngIf="
+            formError['mobileNumber']?.invalid &&
+            (formError['mobileNumber'].dirty ||
+              formError['mobileNumber']?.touched)
+          " class="alert mt-2 alert-danger">
+                    <div *ngIf="formError['mobileNumber'].errors?.['required']">
+                        Mobile number is required.
+                    </div>
+                    <div *ngIf="formError['mobileNumber'].errors?.['mobileNumber']">
+                        Mobile number must be exactly 10 digits.
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="confirmPassword">Confirm Password</label>
-            <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword">
-            <div *ngIf="formError['password'] && formError['password'].invalid && (formError['password'].dirty || formError['password'].touched)" class="alert mt-2 alert-danger">
-                <div *ngIf="formError['password'] && formError['password'].errors?.['required']">
-                    Password is required.
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" formControlName="password" />
+                <div *ngIf="
+            formError['password']?.invalid &&
+            (formError['password'].dirty || formError['password']?.touched)
+          " class="alert mt-2 alert-danger">
+                    <div *ngIf="formError['password'].errors?.['required']">
+                        Password is required.
+                    </div>
                 </div>
             </div>
-            <div class="alert mt-2 alert-danger" *ngIf="registrationForm.errors?.['doesMatchPassword']">
-                Password not matched
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" />
+                <div *ngIf="
+            formError['password'] &&
+            formError['password'].invalid &&
+            (formError['password'].dirty || formError['password'].touched)
+          " class="alert mt-2 alert-danger">
+                    <div *ngIf="formError['password'] && formError['password'].errors?.['required']">
+                        Password is required.
+                    </div>
+                </div>
+                <div class="alert mt-2 alert-danger" *ngIf="registrationForm.errors?.['doesMatchPassword']">
+                    Password not matched
+                </div>
+                <div class="mt-2 text-end">
+                    <a href="/">Already have Account ?</a>
+                </div>
+
+                <!-- <button class="btn btn-primary" type="submit">Submit</button> -->
+                <div class="flex text-center" fxLayoutGap="10px" fxLayoutAlign="end">
+
+                    <app-save-button (buttonClicked)="buttonTriggered($event)"
+                        [disabled]="isFormInvalid()">SIGNUP</app-save-button>&nbsp;
+
+                    <button class="btn btn-grey mt-1" (click)="onCancel()">Cancel</button>
+                </div>
             </div>
-            <div class="mt-2 text-end">
-                <a href="/">Already have Account ?</a>
-            </div>
-            
-            <app-save-button (buttonClicked)="buttonTriggered($event)" [disabled]="isFormInvalid()">SIGNUP</app-save-button>
-            <!-- <button class="btn btn-primary" type="submit">Submit</button> -->
-            <div class="row">
-            <button class="btn btn-grey mt-2" (click)="onCancel()">Cancel</button>
-            </div>
-        </div>
-    </form>
-    
-  </div>
-  
+        </form>
+    </div>
+</div>

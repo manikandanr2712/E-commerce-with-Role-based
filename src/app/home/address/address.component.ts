@@ -171,10 +171,10 @@ export class AddressComponent implements OnInit, OnDestroy {
   getAddress() {
     this.addressService.getAddress(this.userData?.userId).subscribe(
       (res: any) => {
-        this.addressList = res.$values;
+        this.addressList = res.$values.length > 0 ? res.$values : this.toggleFormVisibility() ;
 
         // Loop through each address in the list
-        this.addressList.forEach((address: any) => {
+        this.addressList?.forEach((address: any) => {
           const countryId = parseInt(address.country, 10);
           const stateId = parseInt(address.state, 10);
           const cityId = parseInt(address.city, 10);

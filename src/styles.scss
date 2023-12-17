@@ -13,7 +13,7 @@ a {
 
 label {
     display: block;
-    margin-top: 10px;
+    // margin-top: 10px;
   }
   
   .card-container.card {
@@ -60,4 +60,12 @@ label {
 
 .mat-mdc-select-value {
   line-height: 2 !important;
+}
+
+// .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+//   background-color: none !important;
+// }
+
+.loginForm input {
+  background-color: none !important;
 }

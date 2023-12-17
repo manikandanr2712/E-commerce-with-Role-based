@@ -54,8 +54,9 @@
     <!-- <mat-icon [matBadge]="badgeContent" matBadgeColor="warn" class="cart-icon" style="cursor: pointer;" (click)="addtocart()">shopping_cart</mat-icon> -->
    <!-- Use the new shopping cart component -->
    <app-shopping-cart-icon [badgeContent]="badgeContent" (cartClicked)="addtocart()" style="vertical-align: middle;color: white;"></app-shopping-cart-icon>
+   <div>  <mat-icon class="custom-icon-color" (click)="logout()">exit_to_app</mat-icon></div>
 
-    <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-b" >
+    <!-- <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-b" >
       <img src="../../assets/Fruits/apple.png" alt="Profile" class="profile-img">
     </button>
     <mat-menu #profileMenu="matMenu">
@@ -63,7 +64,7 @@
       <button mat-menu-item>Profile</button><mat-divider></mat-divider>
       <button mat-menu-item>Setting</button><mat-divider></mat-divider>
       <button mat-menu-item (click)="logout()">Log out</button>
-    </mat-menu>
+    </mat-menu> -->
   </div>
 </mat-toolbar>
 <div class="container">
