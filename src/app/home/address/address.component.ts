@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -41,9 +41,10 @@ export class AddressComponent implements OnInit, OnDestroy {
   userId: any;
   cartItems: any[];
   private cartItemsSubscription: Subscription | undefined;
+
   constructor(private fb: FormBuilder, private addressService: AddressService,
     private snackBar: MatSnackBar, private router: Router, private winRef: WindowRefService,
-    private cartService: CartServiceService,) {
+    private cartService: CartServiceService) {
     const userdataString = sessionStorage.getItem('user-detail');
     const decodedToken = userdataString ? JSON.parse(userdataString) : null;
     this.userId = decodedToken.userId;
@@ -229,11 +230,13 @@ export class AddressComponent implements OnInit, OnDestroy {
     this.showForm = false;
   }
   completeOrder() {
+    
+    var data = this.cartService.TotalPrice ?(this.cartService.TotalPrice)*100 : 100 ;
     // this.router.navigate(['dashboard/complete-order'])
     const options: any = {
       description: "testinf added",
       currency: "INR",
-      amount: 100,
+      amount: data,
       name: "Mani",
       key: "rzp_test_7R0Rw8Mp881vmU",
       prefill: {

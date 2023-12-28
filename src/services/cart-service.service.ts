@@ -10,7 +10,7 @@ export class CartServiceService {
   data: any;
   private cartCountSubject = new BehaviorSubject<number>(0);
   cartCount$ = this.cartCountSubject.asObservable();
-
+  TotalPrice:any;
 
   constructor(private httpclient: HttpClient) {
     this.cartCountSubject.next(0);

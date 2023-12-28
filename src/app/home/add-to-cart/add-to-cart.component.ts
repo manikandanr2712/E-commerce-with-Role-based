@@ -130,6 +130,7 @@ export class AddToCartComponent implements OnInit,OnDestroy {
     this.router.navigate(['/dashboard']);
   }
   proceed() {
+    this.cartService.TotalPrice = this.calculateTotalPrice();
     this.router.navigate(['/dashboard/address']);
   }
 
